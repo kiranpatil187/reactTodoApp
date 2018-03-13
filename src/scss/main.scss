@@ -1,0 +1,46 @@
+@import "normalize";
+@import "grid";
+@import "themes/default/master";
+
+#container {
+	margin: 10px;
+	width: 266px;
+    margin: 0 auto;
+
+	button.create{
+		margin-bottom: 8px;
+	}
+
+	.board{
+		height: 100%;
+		padding: 4px;
+
+		.commentContainer {
+			background: #eee;
+			border: 1px solid #ccc;
+			display: block;
+    		margin: 10px 0px;
+		    width: 94%;
+			text-align: center;
+			padding: 8px;
+
+			.comment {
+				font-size: 1.1em;
+				font-weight: 500;
+				margin-bottom: 10px;
+			}
+
+			button {
+				margin-right: 6px;
+			}
+
+			textarea {
+				display: block;
+				margin-bottom: 10px;
+				width: 98%;
+			}
+		}
+
+	}
+
+}

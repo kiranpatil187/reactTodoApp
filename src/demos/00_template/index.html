@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>React - Template</title>
+      <script src="../../js/react.min.js"></script>
+      <script src="../../js/react-dom.min.js"></script>
+      <script src="../../js/browser.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="../../css/main.css">
+   </head>
+   <body>
+      <div id="container"></div>
+      <script type="text/babel">
+         var CommentComponent= React.createClass({
+         
+         getInitialState: function(){
+             return {editing: false}            
+             },
+         
+             edit: function() {
+             this.setState({editing: true});
+              },
+         
+              remove:function(){
+               this.props.removeBoardComment(this.props.index)
+          },
+             save: function() {
+                 this.props.updateBoardComment(this.refs.newText.value, this.props.index);
+                 this.setState({editing: false});
+              },
+               renderNormal: function(){
+                     return(
+                             <div className="commentContainer">
+                                 <p>{this.props.children}</p>
+                                 <button className="button-primary" onClick={this.edit}>Edit</button>
+                                 <button className="button-danger" onClick={this.remove}>remove</button>
+                             </div>                
+                     );
+                 },
+             renderEdit: function(){
+             return(
+                     <div className="commentContainer">
+                         <textarea defaultValue={this.props.children} ref="newText"></textarea>
+                         <button className="button-success" onClick={this.save}>Save</button>
+                     </div>                
+             );
+         },
+         
+           
+             render:function(){
+              if(this.state.editing){
+                 return this.renderEdit();
+             }
+             else{
+             return this.renderNormal();
+         }
+         }
+         
+         });
+         
+         var CommentBoard= React.createClass({
+         getInitialState: function(){
+             return {
+                 comment:[]
+                  }
+         },
+         
+         updateComment:function(newText, i){
+         var arr = this.state.comment;
+         arr[i] = newText;
+         this.setState({comment:arr});
+         },
+         
+         updateInfo:function(text){
+         var arr = this.state.comment;
+         arr.push(text);
+         this.setState({comment: arr})
+         },
+         removeComment: function(i){
+         console.log('removing comment ' + i);
+         var arr = this.state.comment;
+         arr.splice(i, 1);
+         this.setState({comment: arr})
+         },  
+         
+         eachComment:function(text, i){
+         return (<CommentComponent keys={i} index={i} removeBoardComment={this.removeComment} updateBoardComment={this.updateComment}>{text}</CommentComponent>)
+         },
+         
+         render:function(){
+         return (
+         <div>
+
+            <h2>Make your TO DO List</h2>
+
+              <button className="button-info" onClick={this.updateInfo.bind(null, 'Default To Do')}>Add
+              </button>
+             <div className="board">
+                 {
+                     this.state.comment.map(this.eachComment)
+                 }
+             </div>
+         </div>
+         );
+         },
+         });
+         
+         ReactDOM.render(<CommentBoard />, document.getElementById('container')) 
+          
+      </script>
+   </body>
+</html>

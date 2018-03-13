@@ -1,0 +1,63 @@
+ <!--
+         var EventCheck = React.createClass({
+            edit: function() {
+            alert('edit working');
+             },
+
+            remove: function() {
+            alert('remove working');
+             },
+
+            render: function(){
+                return (
+                <div className="commentContainer">
+                     <div className="commentText">{this.props.children}</div>
+                     <button  onClick={this.edit} className="button-primary">Edit</button>
+                     <button  onClick={this.remove} className="button-danger">Remove</button>
+                 </div>
+                        );
+        }
+    });
+        ReactDOM.render(
+        <div className="board">
+           <EventCheck>KP</EventCheck>
+           <EventCheck>BB</EventCheck>
+           <EventCheck>SG</EventCheck>
+        </div>,document.getElementById('container'))
+         -->
+
+
+
+       States=====
+       
+        var CheckEvent = React.createClass({
+
+         getInitialState: function(){
+            return {checked: true}
+
+        },
+        handleCheck: function(){
+            this.setState({checked: !this.state.checked})
+        },
+
+        render: function(){
+        var msg;
+            if(this.state.checked){
+                msg = 'checked'
+            } else{
+                msg = 'unchecked'
+        }
+            return (
+                    <div>
+                        <input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked} />
+                        <h3>checkbox event : {msg} </h3>
+                    </div>
+            );
+
+        }
+    });    
+
+        ReactDOM.render(
+        <div className="board">
+          <CheckEvent />
+        </div>,document.getElementById('container'))  
